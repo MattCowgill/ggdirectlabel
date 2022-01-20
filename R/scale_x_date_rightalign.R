@@ -10,7 +10,7 @@
 #' @param num_breaks The (approximate) number of breaks to include on the
 #' axis. `base::pretty()` is used to generate these breaks.
 #' @param date_labels The format for the date labels on the axis. The default
-#' means "shortened month, then linebreak, then
+#' means "day of month, then shortened month, then linebreak, then
 #' full year". See `?strptime` for more codes that can be used here.
 #' @param ... Arguments passed to `ggplot2::scale_x_date()`.
 #' @export
@@ -24,7 +24,7 @@
 
 scale_x_date_rightalign <- function(expand = expansion(mult = c(0.05, 0.05)),
                                     num_breaks = 5,
-                                    date_labels = "%b\n%Y",
+                                    date_labels = "%e %b\n%Y",
                                     ...) {
   scale_x_date(
     expand = expand,
