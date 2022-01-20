@@ -11,7 +11,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
     ggplot2,
-    magrittr
+    magrittr,
+    scales
 Suggests: 
     vdiffr,
     testthat (>= 3.0.0)
