@@ -99,8 +99,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \examples{
 library(ggplot2)
 
-ggplot2::economics_long \%>\%
-  ggplot(aes(x = date, y = value)) +
+ggplot(ggplot2::economics_long, aes(x = date, y = value)) +
   geom_linepoint(aes(col = variable)) +
   facet_wrap(~variable)
 }

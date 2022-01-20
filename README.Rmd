@@ -32,7 +32,7 @@ You can install the development version of ggdirectlabel from [GitHub](https://g
 devtools::install_github("MattCowgill/ggdirectlabel")
 ```
 
-## Example
+## Using `geom_linepoint()`
 
 Without ggirectlabel, we might do something like:
 
@@ -57,6 +57,21 @@ ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
   geom_linepoint()
 ```
+
+## Using `scale_x_date_rightalign()`
+
+In time series line charts, it's often important to make clear the date of 
+your most recent observation. The `scale_x_date_rightalign()` function aligns
+the breaks of your x-axis so that the most recent observation is included in 
+the breaks.
+
+```{r scale_x_date_rightalign}
+ggplot2::economics_long %>%
+  ggplot(aes(x = date, y = value, col = variable)) +
+  geom_linepoint() +
+  scale_x_date_rightalign()
+```
+
 
 ## Functions (possibly) to come
 - Label the points 

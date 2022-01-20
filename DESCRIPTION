@@ -1,6 +1,6 @@
 Package: ggdirectlabel
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Matt", "Cowgill", , "mattcowgill@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0422-3300"))
@@ -11,7 +11,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
     ggplot2,
-    magrittr,
     scales
 Suggests: 
     vdiffr,
