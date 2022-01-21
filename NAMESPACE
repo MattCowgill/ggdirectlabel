@@ -2,5 +2,7 @@
 
 export(breaks_right)
 export(geom_linepoint)
+export(scale_x_date_bothalign)
+export(scale_x_date_leftalign)
 export(scale_x_date_rightalign)
 import(ggplot2)

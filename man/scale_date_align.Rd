@@ -2,9 +2,25 @@
 % Please edit documentation in R/scale_x_date_rightalign.R
 \name{scale_x_date_rightalign}
 \alias{scale_x_date_rightalign}
+\alias{scale_x_date_leftalign}
+\alias{scale_x_date_bothalign}
 \title{Add a ggplot2 date scale with breaks aligned to the end of your data}
 \usage{
 scale_x_date_rightalign(
+  expand = expansion(mult = c(0.05, 0.05)),
+  num_breaks = 5,
+  date_labels = "\%e \%b\\n\%Y",
+  ...
+)
+
+scale_x_date_leftalign(
+  expand = expansion(mult = c(0.05, 0.05)),
+  num_breaks = 5,
+  date_labels = "\%e \%b\\n\%Y",
+  ...
+)
+
+scale_x_date_bothalign(
   expand = expansion(mult = c(0.05, 0.05)),
   num_breaks = 5,
   date_labels = "\%e \%b\\n\%Y",
@@ -27,8 +43,15 @@ full year". See \code{?strptime} for more codes that can be used here.}
 }
 \description{
 When visualising time series, it's often important to be clear about
-the date of the latest observation. This scale aligns your axis labels
-to the most recent observation in your data.
+the date of the latest observation. \code{scale_x_date_rightalign()} aligns
+your axis breaks to the most recent observation in your data.
+}
+\details{
+\code{scale_x_date_leftalign()} aligns your breaks to the initial date in
+your data.
+
+\code{scale_x_date_bothalign()} ensures that your breaks include both the initial
+and final date in your data, with evenly-spaced breaks in between.
 }
 \examples{
 library(ggplot2)
@@ -36,4 +59,11 @@ ggplot(ggplot2::economics, aes(date, unemploy)) +
     geom_line() +
     scale_x_date_rightalign()
 
+ggplot(ggplot2::economics, aes(date, unemploy)) +
+    geom_line() +
+    scale_x_date_leftalign()
+
+ggplot(ggplot2::economics, aes(date, unemploy)) +
+    geom_line() +
+    scale_x_date_bothalign()
 }
