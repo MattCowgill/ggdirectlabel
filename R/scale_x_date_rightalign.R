@@ -35,7 +35,7 @@
 #' ggplot(ggplot2::economics, aes(date, unemploy)) +
 #'     geom_line() +
 #'     scale_x_date_bothalign()
-scale_x_date_rightalign <- function(expand = expansion(mult = c(0.05, 0.05)),
+scale_x_date_rightalign <- function(expand = expansion(mult = c(0.05, 0.1)),
                                     num_breaks = 5,
                                     date_labels = "%e %b\n%Y",
                                     ...) {

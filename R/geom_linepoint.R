@@ -4,7 +4,7 @@
 #' group.
 #' @inheritParams ggplot2::geom_line
 #' @section Aesthetics:
-#' \code{geom_LinePoint()} understands the following aesthetics (required aesthetics are in bold):
+#' \code{geom_linepoint()} understands the following aesthetics (required aesthetics are in bold):
 #'   \itemize{
 #'     \item \strong{\code{x}}
 #'     \item \strong{\code{y}}
@@ -77,7 +77,7 @@ GeomLinePoint <- ggplot2::ggproto(
                         linemitre = 10,
                         size = 5,
                         flipped_aes = FALSE) {
-    point <- transform(data)
+    point <- data
     point <- point[point$x == max(point$x), ]
     point$size <- point$pointsize
     point$fill <- point$pointfill
