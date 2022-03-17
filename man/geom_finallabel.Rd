@@ -68,14 +68,22 @@ at the observation with the maximum x value for each group.
 }
 \section{Aesthetics}{
 
-The aesthetics that begin with 'point' (eg. \code{pointfill}) are passed to
-\code{geom_point()} - for example \code{pointfill} is passed to the \code{fill} aesthetic
-of \code{geom_point()}.
-
-The \code{x}, \code{y}, \code{alpha}, \code{colour}, and \code{group} aesthetics are passed to both
-\code{geom_line()} and \code{geom_point()}.
-
-The \code{linetype}, \code{size}, and \code{weight} aesthetics are passed to \code{geom_line()}.
+\code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \strong{\code{label}}
+\item \code{alpha}
+\item \code{angle}
+\item \code{colour}
+\item \code{family}
+\item \code{fontface}
+\item \code{group}
+\item \code{hjust}
+\item \code{lineheight}
+\item \code{size}
+\item \code{vjust}
+}
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -85,8 +93,9 @@ library(ggplot2)
 
 ggplot(ggplot2::economics_long, aes(x = date, y = value)) +
   geom_linepoint(aes(col = variable)) +
+  geom_finallabel(aes(label = value)) +
   facet_wrap(~variable)
 }
 \seealso{
-\code{ggplot2::geom_line}, \code{ggplot2::geom_point}
+\code{ggplot2::geom_text}
 }

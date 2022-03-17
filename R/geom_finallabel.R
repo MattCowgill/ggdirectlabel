@@ -59,8 +59,7 @@ GeomFinalLabel <- ggplot2::ggproto(
   ggplot2::Geom,
   extra_params = c("na.rm"),
   setup_data = function(data, params) {
-    data <- ggplot2::GeomText$setup_data(data, params)
-    print(data)
+    ggplot2::GeomText$setup_data(data, params)
   },
   draw_group = function(data,
                         panel_params,
@@ -80,7 +79,7 @@ GeomFinalLabel <- ggplot2::ggproto(
     colour = ggplot2::GeomText$default_aes$colour,
     size = ggplot2::GeomText$default_aes$size,
     angle = ggplot2::GeomText$default_aes$angle,
-    hjust = -0.1,
+    hjust = -0.12,
     vjust = ggplot2::GeomText$default_aes$vjust,
     alpha = ggplot2::GeomText$default_aes$alpha,
     family = ggplot2::GeomText$default_aes$family,

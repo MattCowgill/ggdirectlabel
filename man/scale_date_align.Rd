@@ -7,7 +7,7 @@
 \title{Add a ggplot2 date scale with breaks aligned to the end of your data}
 \usage{
 scale_x_date_rightalign(
-  expand = expansion(mult = c(0.05, 0.05)),
+  expand = expansion(mult = c(0.05, 0.1)),
   num_breaks = 5,
   date_labels = "\%e \%b\\n\%Y",
   ...
