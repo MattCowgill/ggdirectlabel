@@ -9,6 +9,9 @@ geom_finallabel(
   data = NULL,
   stat = "identity",
   position = "identity",
+  nudge_x = 0,
+  nudge_y = 0,
+  nudge_x_perc = 1.5,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
@@ -42,6 +45,19 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function. Cannot be jointy specified with
 \code{nudge_x} or \code{nudge_y}.}
+
+\item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointly specified with \code{position}.}
+
+\item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offsetting text from points, particularly on discrete scales.
+Cannot be jointly specified with \code{position}.}
+
+\item{nudge_x_perc}{Amount to nudge label along the x-axis, expressed as a
+percentage of the data range along the x-axis. The default is \code{1.5}, which
+will nudge the text 1.5\% of the data range from the final point. This is applied
+in addition to \code{nudge_x}, which nudges the text a specific number of data units.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

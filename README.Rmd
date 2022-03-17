@@ -72,7 +72,15 @@ ggplot2::economics_long %>%
   scale_x_date_rightalign()
 ```
 
+## Using `geom_finallabel()`
 
-## Functions (possibly) to come
-- Label the points 
-- Expand the x-axis to accommodate the points
+In time series line charts, you may wish to label the final point in the series. The `geom_finallabel()` function makes that easy. 
+
+```{r geom_finallabel}
+ggplot2::economics_long %>%
+  ggplot(aes(x = date, y = value, col = variable)) +
+  geom_linepoint() +
+  geom_finallabel(aes(label = value)) +
+  scale_x_date_rightalign()
+```
+
