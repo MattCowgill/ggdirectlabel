@@ -31,6 +31,7 @@
 #'
 #' Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 #' @seealso `ggplot2::geom_line`, `ggplot2::geom_point`
+#' @rdname geom_linepoint
 #' @export
 #' @examples
 #' library(ggplot2)
@@ -62,6 +63,8 @@ geom_linepoint <-
     )
   }
 
+#' @rdname geom_linepoint
+#' @export
 GeomLinePoint <- ggplot2::ggproto(
   "GeomLinePoint",
   ggplot2::Geom,

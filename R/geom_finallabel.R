@@ -27,6 +27,7 @@
 #' Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 #' @seealso `ggplot2::geom_text`
 #' @export
+#' @rdname geom_finallabel
 #' @examples
 #' library(ggplot2)
 #'
@@ -70,6 +71,8 @@ geom_finallabel <-
     )
   }
 
+#' @export
+#' @rdname geom_finallabel
 GeomFinalLabel <- ggplot2::ggproto(
   "GeomFinalLabel",
   ggplot2::Geom,
