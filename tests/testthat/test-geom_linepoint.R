@@ -1,9 +1,10 @@
+library(ggplot2)
+
 test_that("geom_linepoint() produces expected output", {
-  library(ggplot2)
 
   plot <-  ggplot(ggplot2::economics_long, aes(x = date, y = value)) +
       geom_linepoint(aes(col = variable)) +
-      facet_wrap(~variable)
+      facet_wrap(~variable, scales = "free_y")
 
   expect_s3_class(plot, "gg")
   vdiffr::expect_doppelganger("Faceted plot", plot)
@@ -19,4 +20,14 @@ test_that("geom_linepoint() produces expected output", {
     geom_linepoint() +
     facet_wrap(~variable) )
 
+})
+
+
+test_that("non-ordered data displays correctly with geom_linepoint()", {
+  plot <- economics %>%
+    dplyr::arrange(unemploy) %>%
+    ggplot(aes(x = date, y = unemploy)) +
+    geom_linepoint()
+
+  vdiffr::expect_doppelganger("Unordered data", plot)
 })

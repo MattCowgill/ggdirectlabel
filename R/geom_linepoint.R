@@ -70,7 +70,7 @@ GeomLinePoint <- ggplot2::ggproto(
   ggplot2::Geom,
   extra_params = c("na.rm"),
   setup_data = function(data, params) {
-    ggplot2::GeomPoint$setup_data(data, params)
+    ggplot2::GeomLine$setup_data(data, params)
   },
   draw_group = function(data,
                         panel_params,
@@ -81,7 +81,7 @@ GeomLinePoint <- ggplot2::ggproto(
                         size = 5,
                         flipped_aes = FALSE) {
     point <- data
-    point <- point[point$x == max(point$x), ]
+    point <- point[point$x == point$x[length(point$x)], ]
     point$size <- point$pointsize
     point$fill <- point$pointfill
     point$shape <- point$pointshape
