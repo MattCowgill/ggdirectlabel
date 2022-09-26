@@ -9,21 +9,21 @@
 scale_x_date_rightalign(
   expand = expansion(mult = c(0.05, 0.1)),
   num_breaks = 5,
-  date_labels = "\%e \%b\\n\%Y",
+  date_labels = NULL,
   ...
 )
 
 scale_x_date_leftalign(
   expand = expansion(mult = c(0.05, 0.05)),
   num_breaks = 5,
-  date_labels = "\%e \%b\\n\%Y",
+  date_labels = NULL,
   ...
 )
 
 scale_x_date_bothalign(
   expand = expansion(mult = c(0.05, 0.05)),
   num_breaks = 5,
-  date_labels = "\%e \%b\\n\%Y",
+  date_labels = NULL,
   ...
 )
 }
@@ -37,7 +37,8 @@ axis. \code{base::pretty()} is used to generate these breaks.}
 
 \item{date_labels}{The format for the date labels on the axis. The default
 means "day of month, then shortened month, then linebreak, then
-full year". See \code{?strptime} for more codes that can be used here.}
+full year". See \code{?strptime} for codes that can be used here. The default is
+\code{NULL}, which means a sensible default will be inferred from your data.}
 
 \item{...}{Arguments passed to \code{ggplot2::scale_x_date()}.}
 }

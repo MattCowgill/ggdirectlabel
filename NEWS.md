@@ -1,4 +1,3 @@
-# ggdirectlabel 0.0.0.900*
-* scale_x_date_*align() and breaks_right() added
-* geom_linepoint() added
-* geom_finallabel() added
+# ggdirectlabel 0.0.1
+* initial working version, with scale_x_date_*align(), breaks_right(), 
+geom_linepoint() and geom_finallabel() 

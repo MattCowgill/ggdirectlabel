@@ -36,6 +36,57 @@ test_that("scale_x_date_*align() works", {
 
 })
 
+test_that("date_labels behaviour in scale_date_*align() works", {
+  plots <- list(
+    "year-dates" = ggplot(ggplot2::economics,
+                             aes(x = date, y = unemploy)) +
+      geom_line() +
+      scale_x_date_rightalign(),
+    "month-dates" = ggplot(subset(ggplot2::economics, date >= as.Date("2010-01-01")),
+                            aes(x = date, y = unemploy)) +
+      geom_line() +
+      scale_x_date_rightalign(),
+    "day-dates" = ggplot(subset(ggplot2::economics, date >= as.Date("2015-01-01")),
+                         aes(x = date, y = unemploy)) +
+      geom_line() +
+      scale_x_date_rightalign(),
+    "manual-dates" = ggplot(subset(ggplot2::economics, date >= as.Date("2010-01-01")),
+                            aes(x = date, y = unemploy)) +
+      geom_line() +
+      scale_x_date_rightalign(date_labels = "%Y"),
+    "manual-dates-2" = ggplot(subset(ggplot2::economics, date >= as.Date("2010-01-01")),
+                              aes(x = date, y = unemploy)) +
+      geom_line() +
+      scale_x_date_rightalign(date_labels = "%b-%Y")
+  )
+
+  Map(function(x, i) vdiffr::expect_doppelganger(title = i, fig = x),
+      plots, names(plots))
+
+})
+
+test_that("labels_date_auto() works as expected", {
+  my_dates <- ggplot2::economics$date
+
+  cut_dates <- function(x, n) {
+    as.Date(
+      labels(
+        split(x, cut(x, n))
+      )
+    )
+  }
+
+  expect_equal(labels_date_auto(cut_dates(my_dates, 5)),
+               "%Y")
+
+  expect_equal(labels_date_auto(cut_dates(my_dates, 100)),
+               "%b\n%Y")
+
+  expect_equal(labels_date_auto(cut_dates(my_dates, 500)),
+               "%b\n%Y")
+
+})
+
 test_that("breaks_right() works with numeric vectors", {
   expect_identical(
     breaks_right(c(10, 30)),
