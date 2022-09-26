@@ -24,8 +24,7 @@ test_that("geom_linepoint() produces expected output", {
 
 
 test_that("non-ordered data displays correctly with geom_linepoint()", {
-  plot <- economics %>%
-    dplyr::arrange(unemploy) %>%
+  plot <- economics[order(-economics$unemploy), , drop = FALSE] |>
     ggplot(aes(x = date, y = unemploy)) +
     geom_linepoint()
 

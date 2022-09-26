@@ -17,7 +17,8 @@
 #' axis. `base::pretty()` is used to generate these breaks.
 #' @param date_labels The format for the date labels on the axis. The default
 #' means "day of month, then shortened month, then linebreak, then
-#' full year". See `?strptime` for more codes that can be used here.
+#' full year". See `?strptime` for codes that can be used here. The default is
+#' `NULL`, which means a sensible default will be inferred from your data.
 #' @param ... Arguments passed to `ggplot2::scale_x_date()`.
 #' @export
 #' @rdname scale_date_align
@@ -37,7 +38,7 @@
 #'     scale_x_date_bothalign()
 scale_x_date_rightalign <- function(expand = expansion(mult = c(0.05, 0.1)),
                                     num_breaks = 5,
-                                    date_labels = "%e %b\n%Y",
+                                    date_labels = NULL,
                                     ...) {
   scale_x_date_align(expand = expand,
                      num_breaks = num_breaks,
@@ -50,7 +51,7 @@ scale_x_date_rightalign <- function(expand = expansion(mult = c(0.05, 0.1)),
 #' @export
 scale_x_date_leftalign <- function(expand = expansion(mult = c(0.05, 0.05)),
                                    num_breaks = 5,
-                                   date_labels = "%e %b\n%Y",
+                                   date_labels = NULL,
                                    ...) {
   scale_x_date_align(expand = expand,
                      num_breaks = num_breaks,
@@ -63,7 +64,7 @@ scale_x_date_leftalign <- function(expand = expansion(mult = c(0.05, 0.05)),
 #' @export
 scale_x_date_bothalign <- function(expand = expansion(mult = c(0.05, 0.05)),
                                    num_breaks = 5,
-                                   date_labels = "%e %b\n%Y",
+                                   date_labels = NULL,
                                    ...) {
   scale_x_date_align(expand = expand,
                      num_breaks = num_breaks,
@@ -73,12 +74,18 @@ scale_x_date_bothalign <- function(expand = expansion(mult = c(0.05, 0.05)),
 }
 
 scale_x_date_align <- function(expand = expansion(mult = c(0.05, 0.05)),
-                                    num_breaks = 5,
-                                    date_labels = "%e %b\n%Y",
-                                    align = c("both", "right", "left"),
-                                    ...) {
+                               num_breaks = 5,
+                               date_labels = NULL,
+                               align = c("both", "right", "left"),
+                               ...) {
 
   align <- match.arg(align)
+
+  date_labeller <- if (is.null(date_labels)) {
+    function(x, fmt = labels_date_auto(x)) format(x, fmt)
+  } else {
+    function(x, fmt = date_labels) format(x, fmt)
+  }
 
   scale_x_date(
     expand = expand,
@@ -114,7 +121,7 @@ scale_x_date_align <- function(expand = expansion(mult = c(0.05, 0.05)),
 
       breaks
     },
-    date_labels = date_labels,
+    labels = date_labeller,
     ...
   )
 }
@@ -195,6 +202,7 @@ breaks_align <- function(limits,
   min_date <- limits[1]
   max_date <- limits[2]
   pre_br <- scales::breaks_pretty(n = n_breaks,
+                                  min.n = n_breaks - 1,
                                   ...)(c(min_date, max_date))
 
 
