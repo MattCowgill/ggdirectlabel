@@ -238,15 +238,15 @@
 <rect x='652.62' y='241.41' width='61.90' height='101.73' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='652.62' y='250.12' style='font-size: 11.00px; font-family: sans;' textLength='38.52px' lengthAdjust='spacingAndGlyphs'>variable</text>
 <rect x='652.62' y='256.74' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='654.35' y1='265.38' x2='668.17' y2='265.38' style='stroke-width: 1.07; stroke: #F8766D; stroke-linecap: butt;' />
+<line x1='654.35' y1='265.38' x2='668.17' y2='265.38' style='stroke-width: 2.13; stroke: #F8766D; stroke-linecap: butt;' />
 <rect x='652.62' y='274.02' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='654.35' y1='282.66' x2='668.17' y2='282.66' style='stroke-width: 1.07; stroke: #A3A500; stroke-linecap: butt;' />
+<line x1='654.35' y1='282.66' x2='668.17' y2='282.66' style='stroke-width: 2.13; stroke: #A3A500; stroke-linecap: butt;' />
 <rect x='652.62' y='291.30' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='654.35' y1='299.94' x2='668.17' y2='299.94' style='stroke-width: 1.07; stroke: #00BF7D; stroke-linecap: butt;' />
+<line x1='654.35' y1='299.94' x2='668.17' y2='299.94' style='stroke-width: 2.13; stroke: #00BF7D; stroke-linecap: butt;' />
 <rect x='652.62' y='308.58' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='654.35' y1='317.22' x2='668.17' y2='317.22' style='stroke-width: 1.07; stroke: #00B0F6; stroke-linecap: butt;' />
+<line x1='654.35' y1='317.22' x2='668.17' y2='317.22' style='stroke-width: 2.13; stroke: #00B0F6; stroke-linecap: butt;' />
 <rect x='652.62' y='325.86' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='654.35' y1='334.50' x2='668.17' y2='334.50' style='stroke-width: 1.07; stroke: #E76BF3; stroke-linecap: butt;' />
+<line x1='654.35' y1='334.50' x2='668.17' y2='334.50' style='stroke-width: 2.13; stroke: #E76BF3; stroke-linecap: butt;' />
 <text x='675.38' y='268.41' style='font-size: 8.80px; font-family: sans;' textLength='14.19px' lengthAdjust='spacingAndGlyphs'>pce</text>
 <text x='675.38' y='285.69' style='font-size: 8.80px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>pop</text>
 <text x='675.38' y='302.97' style='font-size: 8.80px; font-family: sans;' textLength='28.87px' lengthAdjust='spacingAndGlyphs'>psavert</text>
