@@ -50,12 +50,10 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function. Cannot be jointy specified with
-\code{nudge_x} or \code{nudge_y}.}
+a call to a position adjustment function.}
 
 \item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with \code{position}.}
+Useful for offsetting text from points, particularly on discrete scales.}
 
 \item{nudge_x_perc}{Amount to nudge label along the x-axis, expressed as a
 percentage of the data range along the x-axis. The default is \code{1.5}, which

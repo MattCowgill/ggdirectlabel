@@ -11,10 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of ggdirectlabel is to make it easier to directly label ggplot2
-charts - particularly line charts - rather than using legends. **This
-package is an experiment I am playing around with - core functionality
-may change, and I may not proceed with further development. I do not
-recommend using this package in your scripts.**
+charts - particularly line charts - rather than using legends.
 
 ## Installation
 
