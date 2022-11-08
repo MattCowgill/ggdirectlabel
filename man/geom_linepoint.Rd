@@ -88,7 +88,7 @@ group.
 \item \code{pointsize}
 \item \code{pointstroke}
 \item \code{pointshape}
-\item \code{size}
+\item \code{linewidth}
 \item \code{weight}
 }
 The aesthetics that begin with 'point' (eg. \code{pointfill}) are passed to
@@ -98,7 +98,7 @@ of \code{geom_point()}.
 The \code{x}, \code{y}, \code{alpha}, \code{colour}, and \code{group} aesthetics are passed to both
 \code{geom_line()} and \code{geom_point()}.
 
-The \code{linetype}, \code{size}, and \code{weight} aesthetics are passed to \code{geom_line()}.
+The \code{linetype}, \code{linewidth}, and \code{weight} aesthetics are passed to \code{geom_line()}.
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

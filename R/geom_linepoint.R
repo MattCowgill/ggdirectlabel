@@ -17,7 +17,7 @@
 #'     \item \code{pointsize}
 #'     \item \code{pointstroke}
 #'     \item \code{pointshape}
-#'     \item \code{size}
+#'     \item \code{linewidth}
 #'     \item \code{weight}
 #'   }
 #' The aesthetics that begin with 'point' (eg. `pointfill`) are passed to
@@ -27,7 +27,7 @@
 #' The `x`, `y`, `alpha`, `colour`, and `group` aesthetics are passed to both
 #' `geom_line()` and `geom_point()`.
 #'
-#' The `linetype`, `size`, and `weight` aesthetics are passed to `geom_line()`.
+#' The `linetype`, `linewidth`, and `weight` aesthetics are passed to `geom_line()`.
 #'
 #' Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 #' @seealso `ggplot2::geom_line`, `ggplot2::geom_point`
@@ -88,6 +88,10 @@ GeomLinePoint <- ggplot2::ggproto(
     point$stroke <- point$pointstroke
     point$shape <- point$pointshape
 
+    if (utils::packageVersion("ggplot2") < "3.4.0") {
+      names(data)[names(data) == "linewidth"] <- "size"
+    }
+
     path <- transform(data, alpha = NA)
 
     grid::gList(
@@ -105,12 +109,19 @@ GeomLinePoint <- ggplot2::ggproto(
   draw_key = ggplot2::draw_key_smooth,
   required_aes = c("x", "y"),
   non_missing_aes = c(
-    "size", "shape", "colour", "pointsize",
+    "linewidth", "shape", "colour", "pointsize",
     "pointstroke", "pointfill", "pointshape"
   ),
   default_aes = ggplot2::aes(
-    pointsize = 2.5, pointfill = "white", pointshape = 21,
-    shape = 19, colour = "black", size = 1,
-    alpha = 1, pointstroke = 1.5, linetype = 1, weight = 1
+    pointsize = 2.5,
+    pointfill = "white",
+    pointshape = 21,
+    shape = 19,
+    colour = "black",
+    linewidth = 1,
+    alpha = 1,
+    pointstroke = 1.5,
+    linetype = 1,
+    weight = 1
   )
 )
