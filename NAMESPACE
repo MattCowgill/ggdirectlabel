@@ -2,9 +2,11 @@
 
 export(GeomFinalLabel)
 export(GeomLinePoint)
+export(GeomRichLegend)
 export(breaks_right)
 export(geom_finallabel)
 export(geom_linepoint)
+export(geom_richlegend)
 export(scale_x_date_bothalign)
 export(scale_x_date_leftalign)
 export(scale_x_date_rightalign)
