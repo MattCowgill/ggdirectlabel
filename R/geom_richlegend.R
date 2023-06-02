@@ -1,34 +1,16 @@
 #' Rich legend
 #' @description `geom_richlegend()` draws coloured text in lieu of a legend
 #' @inheritParams ggplot2::geom_text
-#' @export
 #' @examples
-#' palmerpenguins::penguins |>
-#'   ggplot(aes(x = bill_length_mm,
-#'              y = bill_depth_mm,
-#'              col = species)) +
+#' library(ggplot2)
+#' ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
 #'   geom_point() +
-#'   geom_richlegend(aes(label = species),
-#'                   x = 60,
-#'                   y = 12.75,
-#'                   vjust = 0,
-#'                   hjust = 1) +
-#'   theme(legend.position = "none")
+#'   geom_richlegend(aes(label = cyl),
+#'   x = 5, y = 30)
 #'
-#' # respects facets!
-#' palmerpenguins::penguins |>
-#'   ggplot(aes(x = bill_length_mm,
-#'              y = bill_depth_mm,
-#'              col = species)) +
-#'   geom_point() +
-#'   geom_richlegend(aes(label = species),
-#'                   x = 60,
-#'                   y = 12.75,
-#'                   vjust = 0,
-#'                   hjust = 1) +
-#'   facet_wrap(~island) +
-#'   theme(legend.position = "none")
-
+#' @import ggplot2
+#' @rdname geom_richlegend
+#' @export
 geom_richlegend <-
   function(mapping = NULL,
            data = NULL,
@@ -54,7 +36,7 @@ geom_richlegend <-
   }
 
 #' @export
-#' @rdname geom_finallabel
+#' @rdname geom_richlegend
 GeomRichLegend <- ggplot2::ggproto(
   "GeomRichLegend",
   ggplot2::Geom,
@@ -114,6 +96,8 @@ GeomRichLegend <- ggplot2::ggproto(
 )
 
 #' Slightly modified from gridtext by Claus O Wilke
+#' @keywords internal
+#' @noRd
 rt_draw_panel <- function(data, panel_params, coord,
                           label.padding = unit(c(
                             0.25,
@@ -146,6 +130,7 @@ rt_draw_panel <- function(data, panel_params, coord,
   )
 }
 
+#' @noRd
 `%||%` <- function(a, b) {
   if (!is.null(a)) {
     a
@@ -153,3 +138,25 @@ rt_draw_panel <- function(data, panel_params, coord,
     b
   }
 }
+
+# From gridtext by Claus O Wilke
+#' @noRd
+compute_just <- function(just, x) {
+  inward <- just == "inward"
+  just[inward] <- c("left", "middle", "right")[just_dir(x[inward])]
+  outward <- just == "outward"
+  just[outward] <- c("right", "middle", "left")[just_dir(x[outward])]
+
+  unname(c(left = 0, center = 0.5, right = 1,
+           bottom = 0, middle = 0.5, top = 1)[just])
+}
+
+# From gridtext by Claus O Wilke
+#' @noRd
+just_dir <- function(x, tol = 0.001) {
+  out <- rep(2L, length(x))
+  out[x < 0.5 - tol] <- 1L
+  out[x > 0.5 + tol] <- 3L
+  out
+}
+
