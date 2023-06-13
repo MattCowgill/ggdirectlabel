@@ -42,6 +42,7 @@ GeomRichLegend <- ggplot2::ggproto(
   ggplot2::Geom,
   extra_params = c("na.rm"),
   setup_data = function(data, params) {
+
     ggtext::GeomRichText$setup_data(data, params) |>
       dplyr::group_by(label, group, PANEL, colour) |>
       dplyr::summarise() |>
@@ -78,20 +79,21 @@ GeomRichLegend <- ggplot2::ggproto(
   },
   draw_key = ggplot2::draw_key_text,
   required_aes = c(
-    "x",
-    "y",
-    "label"
+    # "x",
+    # "y",
+    "label",
+    "colour"
   ),
   default_aes = ggplot2::aes(
-    colour = ggplot2::GeomText$default_aes$colour,
-    size = ggplot2::GeomText$default_aes$size,
-    angle = ggplot2::GeomText$default_aes$angle,
+    colour = ggtext::GeomRichText$default_aes$colour,
+    size = ggtext::GeomRichText$default_aes$size,
+    angle = ggtext::GeomRichText$default_aes$angle,
     hjust = 0,
-    vjust = ggplot2::GeomText$default_aes$vjust,
-    alpha = ggplot2::GeomText$default_aes$alpha,
-    family = ggplot2::GeomText$default_aes$family,
-    fontface = ggplot2::GeomText$default_aes$fontface,
-    lineheight = 0.9
+    vjust = ggtext::GeomRichText$default_aes$vjust,
+    alpha = ggtext::GeomRichText$default_aes$alpha,
+    family = ggtext::GeomRichText$default_aes$family,
+    fontface = ggtext::GeomRichText$default_aes$fontface,
+    lineheight = 1
   )
 )
 
