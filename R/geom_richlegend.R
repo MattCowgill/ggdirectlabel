@@ -16,6 +16,7 @@ geom_richlegend <-
            data = NULL,
            stat = "identity",
            position = "identity",
+           legend.position = "topright",
            na.rm = FALSE,
            show.legend = FALSE,
            inherit.aes = TRUE,
@@ -30,6 +31,7 @@ geom_richlegend <-
       inherit.aes = inherit.aes,
       params = list(
         na.rm = na.rm,
+        legend.position = legend.position,
         ...
       )
     )
@@ -40,18 +42,25 @@ geom_richlegend <-
 GeomRichLegend <- ggplot2::ggproto(
   "GeomRichLegend",
   ggplot2::Geom,
-  extra_params = c("na.rm"),
+  extra_params = c("na.rm",
+                   "legend.position"),
   setup_data = function(data, params) {
 
     ggtext::GeomRichText$setup_data(data, params) |>
       dplyr::group_by(label, group, PANEL, colour) |>
       dplyr::summarise() |>
-      dplyr::ungroup()
+      dplyr::ungroup() |>
+      dplyr::mutate(legend.position = params$legend.position)
   },
   draw_panel = function(data,
                         panel_params,
                         coord,
                         flipped_aes = FALSE) {
+
+    xy <- legend_pos_to_xy(data$legend.position,
+                           panel_params$x.range,
+                           panel_params$y.range)
+
     richtext_data <- data |>
       dplyr::mutate(
         label = paste0(
@@ -60,7 +69,9 @@ GeomRichLegend <- ggplot2::ggproto(
           "'>",
           label,
           "</span>"
-        )
+        ),
+        x = xy[1],
+        y = xy[2]
       ) |>
       dplyr::group_by(
         PANEL, x, y, size, angle, hjust, vjust,
@@ -79,8 +90,6 @@ GeomRichLegend <- ggplot2::ggproto(
   },
   draw_key = ggplot2::draw_key_text,
   required_aes = c(
-    # "x",
-    # "y",
     "label",
     "colour"
   ),
@@ -88,14 +97,53 @@ GeomRichLegend <- ggplot2::ggproto(
     colour = ggtext::GeomRichText$default_aes$colour,
     size = ggtext::GeomRichText$default_aes$size,
     angle = ggtext::GeomRichText$default_aes$angle,
-    hjust = 0,
-    vjust = ggtext::GeomRichText$default_aes$vjust,
+    hjust = 1,
+    vjust = 1,
     alpha = ggtext::GeomRichText$default_aes$alpha,
     family = ggtext::GeomRichText$default_aes$family,
     fontface = ggtext::GeomRichText$default_aes$fontface,
-    lineheight = 1
+    lineheight = 1.2
   )
 )
+
+legend_pos_to_xy <- function(legend.position,
+                             xrange,
+                             yrange) {
+  l <- unique(legend.position)
+
+  if(is.numeric(l)) {
+    stopifnot("Numeric `legend.position` must have length 2" = length(l) == 2)
+    stopifnot("Numeric `legend.position` must have values between 0 & 1" =
+                min(l) >= 0 || max(l) <= 1)
+    l_num <- l
+  }
+
+  if (is.character(l)) {
+    stopifnot(l %in% c("left",
+                       "right",
+                       "bottom",
+                       "top",
+                       "topright",
+                       "bottomright",
+                       "bottomleft",
+                       "topleft"))
+    l_num <- switch(
+      l,
+      "left" = c(0.025, 0.5),
+      "right" = c(0.975, 0.5),
+      "bottom" = c(0.5, 0.025),
+      "top" = c(0.5, 0.975),
+      "topright" = c(0.975, 0.975),
+      "bottomright" = c(0.975, 0.025),
+      "bottomleft" = c(0.025, 0.025),
+      "topleft" = c(0.025, 0.975)
+    )
+  }
+    l_x <- l_num[1] * (xrange[2] - xrange[1]) + xrange[1]
+    l_y <- l_num[2] * (yrange[2] - yrange[1]) + yrange[1]
+
+    return(c(l_x, l_y))
+}
 
 #' Slightly modified from gridtext by Claus O Wilke
 #' @keywords internal
