@@ -69,6 +69,8 @@ geom_richlegend <-
 
 #' @rdname geom_richlegend
 #' @export
+#' @importFrom ggtext GeomRichText
+#' @importFrom dplyr mutate
 GeomRichLegend <- ggplot2::ggproto(
   "GeomRichLegend",
   ggplot2::Geom,

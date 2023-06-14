@@ -13,6 +13,7 @@ Imports:
     ggplot2,
     dplyr,
     gridtext,
+    ggtext,
     scales
 Suggests: 
     vdiffr,
