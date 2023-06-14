@@ -34,6 +34,7 @@ devtools::install_github("MattCowgill/ggdirectlabel")
 ```
 
 ```{r}
+library(ggdirectlabel)
 library(ggplot2)
 library(magrittr)
 ```
@@ -50,14 +51,14 @@ base_scatter
 
 This is fine! But sometimes you might like the legend levels (4, 6, and 8 in this example) to be coloured according to the levels in the data. That's where `geom_richlegend()` comes in:
 ```{r}
-base_plot +
+base_scatter +
   geom_richlegend(aes(label = cyl)) +
   theme(legend.position = "none")
 ```
 
 You can move the 'rich legend' around:
 ```{r}
-base_plot +
+base_scatter +
   geom_richlegend(aes(label = cyl),
                   legend.position = "bottomleft",
                   vjust = 0,
@@ -68,7 +69,7 @@ base_plot +
 `geom_richlegend()` respects facets - it'll place a little legend annotation for each level of the data that appears in that panel:
 
 ```{r}
-base_plot +
+base_scatter +
   geom_richlegend(aes(label = paste0(cyl, " cylinders"))) +
   facet_wrap(~cyl)
 ```
@@ -93,7 +94,6 @@ ggplot2::economics_long %>%
 This is fine! But this is a more straightforward way to achieve the same thing:
 
 ```{r example}
-library(ggdirectlabel)
 ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
   geom_linepoint()

@@ -24,14 +24,67 @@ You can install the development version of ggdirectlabel from
 devtools::install_github("MattCowgill/ggdirectlabel")
 ```
 
+``` r
+library(ggdirectlabel)
+library(ggplot2)
+library(magrittr)
+```
+
+## Using `geom_richlegend()`
+
+Here’s a standard ggplot2 scatterplot:
+
+``` r
+base_scatter <- mtcars |> 
+  ggplot(aes(x = wt, y = mpg, col = factor(cyl))) +
+  geom_point()
+
+base_scatter
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="672" />
+
+This is fine! But sometimes you might like the legend levels (4, 6, and
+8 in this example) to be coloured according to the levels in the data.
+That’s where `geom_richlegend()` comes in:
+
+``` r
+base_scatter +
+  geom_richlegend(aes(label = cyl)) +
+  theme(legend.position = "none")
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="672" />
+
+You can move the ‘rich legend’ around:
+
+``` r
+base_scatter +
+  geom_richlegend(aes(label = cyl),
+                  legend.position = "bottomleft",
+                  vjust = 0,
+                  hjust = 0) +
+  theme(legend.position = "none")
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="672" />
+
+`geom_richlegend()` respects facets - it’ll place a little legend
+annotation for each level of the data that appears in that panel:
+
+``` r
+base_scatter +
+  geom_richlegend(aes(label = paste0(cyl, " cylinders"))) +
+  facet_wrap(~cyl)
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="672" />
+
 ## Using `geom_linepoint()`
 
 Without ggirectlabel, we might do something like:
 
 ``` r
-library(ggplot2)
-library(magrittr)
-theme_set(theme_minimal())
 
 ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
@@ -49,7 +102,6 @@ This is fine! But this is a more straightforward way to achieve the same
 thing:
 
 ``` r
-library(ggdirectlabel)
 ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
   geom_linepoint()
@@ -83,7 +135,8 @@ ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
   geom_linepoint() +
   geom_finallabel(aes(label = round(value, 0))) +
-  scale_x_date_rightalign()
+  scale_x_date_rightalign(expand = expansion(c(0, 0.15))) +
+  theme(legend.position = "none")
 ```
 
 <img src="man/figures/README-geom_finallabel-1.png" width="672" />
