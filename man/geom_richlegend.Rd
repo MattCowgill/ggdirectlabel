@@ -12,10 +12,8 @@ An object of class \code{GeomRichLegend} (inherits from \code{Geom}, \code{ggpro
 geom_richlegend(
   mapping = NULL,
   data = NULL,
-  stat = "identity",
-  position = "identity",
+  legend.position = "topright",
   na.rm = FALSE,
-  show.legend = FALSE,
   inherit.aes = TRUE,
   ...
 )
@@ -23,10 +21,10 @@ geom_richlegend(
 GeomRichLegend
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
+\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+default), it is combined with the default mapping at the top level of the
+plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -43,23 +41,19 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
-stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
-\code{"stat_count"})}
+\item{legend.position}{Either:
+\itemize{
+\item a two-element numeric vector such as \code{c(0.2, 0.9)}. The first element
+denoted the x-position of the data and the second element denotes the
+y-position. Each element must be between 0 and 1 (inclusive).
+\item one of the following strings: "left", "right", "bottom", "top",
+"topleft", "topright", "bottomleft", "bottomright".
+}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function. Cannot be jointly specified with
-\code{nudge_x} or \code{nudge_y}.}
+Default is "topright", which is equivalent to \code{c(0.975, 0.975)}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
-
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -76,10 +70,30 @@ to the paired geom/stat.}
 }
 \examples{
 library(ggplot2)
-ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
+
+base_plot <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
   geom_point() +
+  theme(legend.position = "none")
+
+# By default, the rich legend is placed at the "topright"
+base_plot +
+  geom_richlegend(aes(label = cyl))
+
+# You can change the position of the rich legend:
+base_plot +
   geom_richlegend(aes(label = cyl),
-  x = 5, y = 30)
+                  legend.position = "top")
+
+# Or you can change the position using a numeric vector:
+base_plot +
+  geom_richlegend(aes(label = cyl),
+                  legend.position = c(0.1, 0.1))
+
+# The legend respects facets:
+base_plot +
+  geom_richlegend(aes(label = cyl)) +
+  facet_wrap(~cyl)
+
 
 }
 \keyword{datasets}

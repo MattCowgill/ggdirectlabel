@@ -1,12 +1,43 @@
 #' Rich legend
 #' @description `geom_richlegend()` draws coloured text in lieu of a legend
-#' @inheritParams ggplot2::geom_text
+#' @param legend.position Either:
+#'
+#'  - a two-element numeric vector such as `c(0.2, 0.9)`. The first element
+#'  denoted the x-position of the data and the second element denotes the
+#'  y-position. Each element must be between 0 and 1 (inclusive).
+#'
+#'  - one of the following strings: "left", "right", "bottom", "top",
+#'  "topleft", "topright", "bottomleft", "bottomright".
+#'
+#'  Default is "topright", which is equivalent to `c(0.975, 0.975)`.
+#'
+#' @inheritParams ggtext::geom_richtext
 #' @examples
 #' library(ggplot2)
-#' ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
+#'
+#' base_plot <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
 #'   geom_point() +
+#'   theme(legend.position = "none")
+#'
+#' # By default, the rich legend is placed at the "topright"
+#' base_plot +
+#'   geom_richlegend(aes(label = cyl))
+#'
+#' # You can change the position of the rich legend:
+#' base_plot +
 #'   geom_richlegend(aes(label = cyl),
-#'   x = 5, y = 30)
+#'                   legend.position = "top")
+#'
+#' # Or you can change the position using a numeric vector:
+#' base_plot +
+#'   geom_richlegend(aes(label = cyl),
+#'                   legend.position = c(0.1, 0.1))
+#'
+#' # The legend respects facets:
+#' base_plot +
+#'   geom_richlegend(aes(label = cyl)) +
+#'   facet_wrap(~cyl)
+#'
 #'
 #' @import ggplot2
 #' @rdname geom_richlegend
@@ -14,20 +45,17 @@
 geom_richlegend <-
   function(mapping = NULL,
            data = NULL,
-           stat = "identity",
-           position = "identity",
            legend.position = "topright",
            na.rm = FALSE,
-           show.legend = FALSE,
            inherit.aes = TRUE,
            ...) {
     ggplot2::layer(
       data = data,
       mapping = mapping,
-      stat = stat,
+      stat = "identity",
       geom = GeomRichLegend,
-      position = position,
-      show.legend = show.legend,
+      position = "identity",
+      show.legend = FALSE,
       inherit.aes = inherit.aes,
       params = list(
         na.rm = na.rm,
@@ -37,8 +65,8 @@ geom_richlegend <-
     )
   }
 
-#' @export
 #' @rdname geom_richlegend
+#' @export
 GeomRichLegend <- ggplot2::ggproto(
   "GeomRichLegend",
   ggplot2::Geom,
@@ -50,14 +78,14 @@ GeomRichLegend <- ggplot2::ggproto(
       dplyr::group_by(label, group, PANEL, colour) |>
       dplyr::summarise() |>
       dplyr::ungroup() |>
-      dplyr::mutate(legend.position = params$legend.position)
+      dplyr::mutate(legend.position = list(params$legend.position))
   },
   draw_panel = function(data,
                         panel_params,
                         coord,
                         flipped_aes = FALSE) {
 
-    xy <- legend_pos_to_xy(data$legend.position,
+    xy <- legend_pos_to_xy(data$legend.position[[1]],
                            panel_params$x.range,
                            panel_params$y.range)
 
@@ -109,7 +137,7 @@ GeomRichLegend <- ggplot2::ggproto(
 legend_pos_to_xy <- function(legend.position,
                              xrange,
                              yrange) {
-  l <- unique(legend.position)
+  l <- legend.position
 
   if(is.numeric(l)) {
     stopifnot("Numeric `legend.position` must have length 2" = length(l) == 2)

@@ -12,7 +12,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of ggdirectlabel is to make it easier to directly label ggplot2
-charts - particularly line charts - rather than using legends.
+charts rather than using legends.
 
 ## Installation
 
@@ -31,6 +31,8 @@ Without ggirectlabel, we might do something like:
 ``` r
 library(ggplot2)
 library(magrittr)
+theme_set(theme_minimal())
+
 ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
   geom_line() +
@@ -41,7 +43,7 @@ ggplot2::economics_long %>%
              stroke = 1.25)
 ```
 
-<img src="man/figures/README-no-directlabel-1.png" width="100%" />
+<img src="man/figures/README-no-directlabel-1.png" width="672" />
 
 This is fine! But this is a more straightforward way to achieve the same
 thing:
@@ -53,7 +55,7 @@ ggplot2::economics_long %>%
   geom_linepoint()
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="672" />
 
 ## Using `scale_x_date_rightalign()`
 
@@ -69,7 +71,7 @@ ggplot2::economics_long %>%
   scale_x_date_rightalign()
 ```
 
-<img src="man/figures/README-scale_x_date_rightalign-1.png" width="100%" />
+<img src="man/figures/README-scale_x_date_rightalign-1.png" width="672" />
 
 ## Using `geom_finallabel()`
 
@@ -80,8 +82,8 @@ series. The `geom_finallabel()` function makes that easy.
 ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +
   geom_linepoint() +
-  geom_finallabel(aes(label = value)) +
+  geom_finallabel(aes(label = round(value, 0))) +
   scale_x_date_rightalign()
 ```
 
-<img src="man/figures/README-geom_finallabel-1.png" width="100%" />
+<img src="man/figures/README-geom_finallabel-1.png" width="672" />
