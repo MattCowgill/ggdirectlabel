@@ -18,7 +18,7 @@ geom_finallabel(
   nudge_y = 0,
   nudge_x_perc = 1.5,
   na.rm = FALSE,
-  show.legend = NA,
+  show.legend = FALSE,
   inherit.aes = TRUE,
   ...
 )
