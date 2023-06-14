@@ -33,14 +33,52 @@ You can install the development version of ggdirectlabel from [GitHub](https://g
 devtools::install_github("MattCowgill/ggdirectlabel")
 ```
 
+```{r}
+library(ggplot2)
+library(magrittr)
+```
+
+## Using `geom_richlegend()`
+Here's a standard ggplot2 scatterplot:
+```{r}
+base_scatter <- mtcars |> 
+  ggplot(aes(x = wt, y = mpg, col = factor(cyl))) +
+  geom_point()
+
+base_scatter
+```
+
+This is fine! But sometimes you might like the legend levels (4, 6, and 8 in this example) to be coloured according to the levels in the data. That's where `geom_richlegend()` comes in:
+```{r}
+base_plot +
+  geom_richlegend(aes(label = cyl)) +
+  theme(legend.position = "none")
+```
+
+You can move the 'rich legend' around:
+```{r}
+base_plot +
+  geom_richlegend(aes(label = cyl),
+                  legend.position = "bottomleft",
+                  vjust = 0,
+                  hjust = 0) +
+  theme(legend.position = "none")
+```
+
+`geom_richlegend()` respects facets - it'll place a little legend annotation for each level of the data that appears in that panel:
+
+```{r}
+base_plot +
+  geom_richlegend(aes(label = paste0(cyl, " cylinders"))) +
+  facet_wrap(~cyl)
+```
+
+
 ## Using `geom_linepoint()`
 
 Without ggirectlabel, we might do something like:
 
 ```{r no-directlabel}
-library(ggplot2)
-library(magrittr)
-theme_set(theme_minimal())
 
 ggplot2::economics_long %>%
   ggplot(aes(x = date, y = value, col = variable)) +

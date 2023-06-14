@@ -4,7 +4,7 @@
 \name{geom_richlegend}
 \alias{geom_richlegend}
 \alias{GeomRichLegend}
-\title{Rich legend}
+\title{Create a 'rich legend' for your ggplot2 plot.}
 \format{
 An object of class \code{GeomRichLegend} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 7.
 }
@@ -66,7 +66,9 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-\code{geom_richlegend()} draws coloured text in lieu of a legend
+\code{geom_richlegend()} draws coloured text in lieu of a legend. It
+uses the wonderful \code{{ggtext}} to create coloured text annotation(s) at a
+location of your choice on your plot. Use this instead of a standard legend.
 }
 \examples{
 library(ggplot2)

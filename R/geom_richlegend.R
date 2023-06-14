@@ -1,5 +1,7 @@
-#' Rich legend
-#' @description `geom_richlegend()` draws coloured text in lieu of a legend
+#' Create a 'rich legend' for your ggplot2 plot.
+#' @description `geom_richlegend()` draws coloured text in lieu of a legend. It
+#' uses the wonderful `{ggtext}` to create coloured text annotation(s) at a
+#' location of your choice on your plot. Use this instead of a standard legend.
 #' @param legend.position Either:
 #'
 #'  - a two-element numeric vector such as `c(0.2, 0.9)`. The first element
