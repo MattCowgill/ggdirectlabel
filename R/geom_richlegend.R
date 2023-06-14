@@ -94,7 +94,8 @@ GeomRichLegend <- ggplot2::ggproto(
 
     xy <- legend_pos_to_xy(data$legend.position[[1]],
                            panel_params$x.range,
-                           panel_params$y.range)
+                           panel_params$y.range,
+                           inherits(coord, "CoordFlip"))
 
     richtext_data <- data |>
       dplyr::mutate(
@@ -143,7 +144,8 @@ GeomRichLegend <- ggplot2::ggproto(
 
 legend_pos_to_xy <- function(legend.position,
                              xrange,
-                             yrange) {
+                             yrange,
+                             flipped) {
   l <- legend.position
 
   if(is.numeric(l)) {
@@ -177,7 +179,11 @@ legend_pos_to_xy <- function(legend.position,
     l_x <- l_num[1] * (xrange[2] - xrange[1]) + xrange[1]
     l_y <- l_num[2] * (yrange[2] - yrange[1]) + yrange[1]
 
-    return(c(l_x, l_y))
+    if (isTRUE(flipped)) {
+      return(c(l_y, l_x))
+    } else {
+      return(c(l_x, l_y))
+    }
 }
 
 #' Slightly modified from gridtext by Claus O Wilke
