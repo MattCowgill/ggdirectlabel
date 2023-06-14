@@ -78,11 +78,14 @@ GeomRichLegend <- ggplot2::ggproto(
                    "legend.position"),
   setup_data = function(data, params) {
 
-    ggtext::GeomRichText$setup_data(data, params) |>
-      dplyr::group_by(label, group, PANEL, colour) |>
+    out <- ggtext::GeomRichText$setup_data(data, params) |>
+      dplyr::group_by(label, PANEL, colour) |>
       dplyr::summarise() |>
+      dplyr::distinct() |>
       dplyr::ungroup() |>
       dplyr::mutate(legend.position = list(params$legend.position))
+
+    out
   },
   draw_panel = function(data,
                         panel_params,

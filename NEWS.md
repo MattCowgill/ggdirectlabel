@@ -1,3 +1,6 @@
+# ggdirectlabel 0.1.0.9xx
+* Bug fixes
+
 # ggdirectlabel 0.1.0
 * geom_richlegend() added
 
